@@ -1,0 +1,74 @@
+body {
+    background-color: $accent-color;
+}
+
+// main layout properties
+.content-wrapper {
+    height: 100vh;
+    display: block;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.chat-window {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    height: 0px;
+    padding: 1rem 1rem 10rem;
+}
+
+.chat-input {
+    padding: 1rem;
+    background-color: white;
+    box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/**
+  * Componentes
+  */
+
+// Chat messages
+.chat-message {
+    padding: 1rem;
+    border-radius: $large-radius;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 2px rgba(black, 0.1);
+    clear: both;
+    float: left;
+    border: 1px solid white;
+    background-color: white;
+    .chat-message-username {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .chat-message-message {
+        margin-bottom: 0;
+    }
+    &.user-message {
+        text-align: right;
+        float: right;
+        border: 1px solid $primary-color;
+        background-color: $primary-color;
+        color: white;
+    }
+}
+
+// user input group
+.chat-user-input-group {
+    margin-bottom: 0;
+    .user-input {
+        vertical-align: middle;
+        appearance: none;
+    }
+    .send-button {
+        vertical-align: -6px;
+        line-height: 1.57;
+        .material-icons {
+            line-height: inherit;
+        }
+    }
+}

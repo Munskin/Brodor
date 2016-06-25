@@ -3,13 +3,24 @@ $(function() {
     var textInput = document.querySelector('.user-input');
     var sendButton = document.querySelector('.send-button');
 
-    sendButton.addEventListener("click", function() {
+    var sendMessage = function() {
         var msgText = textInput.value;
         myFirebase.push({
             message: msgText,
             username: "Sam"
         });
         textInput.value = "";
+    }
+
+    sendButton.addEventListener("click", function() {
+           sendMessage();
+    });
+
+    textInput.addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode == 13) {
+            sendMessage();
+        }
     });
 
     /** Function to add a data listener **/

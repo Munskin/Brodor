@@ -8,7 +8,7 @@ $(function() {
     var chatMessage = document.getElementsByClassName('chat-message');
     
     // get messages from database
-    firebase.database().ref('/').on('value', function(messages) {
+    firebase.database().ref('/messages').on('value', function(messages) {
         
         chatWindow.innerHTML = '';
         
@@ -55,7 +55,7 @@ $(function() {
     function appendNewChatElement() {
         var chatCount = chatMessage.length + 1;
         var message = userInput.value;
-        firebase.database().ref('/' + "message_"+chatCount).set({
+        firebase.database().ref('/messages/' + Date.now()).set({
             username: newUser,
             message: message
         });

@@ -1,17 +1,27 @@
 $(function() {
+    
+    var newUser = "Wessel"
+    
+    var chatWindow = document.getElementsByClassName('chat-window')[0];
+    var sendButton = document.getElementsByClassName('send-button')[0];
+    var userInput = document.getElementsByClassName('user-input')[0];
+    var chatMessage = document.getElementsByClassName('chat-message');
+    
     // get messages from database
     firebase.database().ref('/').on('value', function(messages) {
+        
+        chatWindow.innerHTML = '';
         
         // traverse messages function
         function traverse(obj) {
             for (var prop in obj) {
                 var message = obj[prop].message;
                 var user = obj[prop].username;
-                
+    
                 // populate function with data
                 createChatElements(user, message);
-            }
-        }
+            };
+        };
         // call function
         traverse(messages.val());
     });
@@ -24,11 +34,31 @@ $(function() {
         chatHTML += '</div>';
 
         // function to append chat
-        appendChatElements(chatHTML);
-    }
+        appendCurrentElements(chatHTML);
+    };
 
-    // append chatHTML to chat-wrapper
-    function appendChatElements(chat) {
-        $('.chat-window').append(chat);
-    }
+    // append chatHTML to chat-window
+    function appendCurrentElements(chat) {
+        chatWindow.innerHTML += chat;
+    };
+    
+    // new chat message triggers
+    sendButton.addEventListener('click', function(){
+        appendNewChatElement();
+    });
+    
+    userInput.addEventListener('keyup', function(e){
+       if (e.keyCode == 13) { appendNewChatElement(); }; 
+    });
+    
+    // append new chat elements with data
+    function appendNewChatElement() {
+        var chatCount = chatMessage.length + 1;
+        var message = userInput.value;
+        firebase.database().ref('/' + "message_"+chatCount).set({
+            username: newUser,
+            message: message
+        });
+        userInput.value = '';
+    };
 });

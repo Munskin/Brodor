@@ -33,6 +33,7 @@ body {
 
 // Chat messages
 .chat-message {
+    max-width: 540px;
     padding: 1rem;
     border-radius: $large-radius;
     margin-bottom: 1rem;

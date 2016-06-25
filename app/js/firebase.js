@@ -3,7 +3,7 @@ $(function() {
     var textInput = document.querySelector('.user-input');
     var sendButton = document.querySelector('.send-button');
 
-    var sendMessage = function() {
+    function sendMessage() {
         var msgText = textInput.value;
         myFirebase.push({
             message: msgText,

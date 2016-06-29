@@ -143,9 +143,16 @@ var distributeChats = function() {
 var animateToChatWindow = function(element) {
     element.addClass('invisible-state');
     element.appendTo($chatWindow);
+    
+    var lastElem = $chatWindow.children().last().outerHeight() + 10;
+    var windowHeight = $chatWindow.outerHeight();
+    var scrollOffset = windowHeight - lastElem;
+  
     element.velocity("scroll", { 
         container: $chatWindow,
-        duration: 500
+        duration: 400,
+        easing: "easeOutCubic",
+        offset: -scrollOffset
     });
     
     setTimeout(function(){

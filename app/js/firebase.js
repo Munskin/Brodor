@@ -5,6 +5,7 @@ var $userInput = $('.user-input');
 var $chatMessage = $('.chat-message');
 var $loginButton = $('.login-button');
 var $landingWrapper = $('.landing-wrapper');
+var brodorFB = firebase.database().ref('/messages');
 var provider = new firebase.auth.FacebookAuthProvider();
 var facebookUser = null; /* filled by FB */
 
@@ -55,11 +56,12 @@ $userInput.on('keyup', function(e) {
 
 var sendNewChat = function() {
     var message = $userInput.val();
-    
+
     if (message.length > 0) {
-        firebase.database().ref('/messages/' + Date.now()).set({
+        brodorFB.push({
             username: facebookUser,
-            message: message
+            message: message,
+            timestamp: Date.now()
         });
         $userInput.val('');
     }
@@ -72,12 +74,12 @@ var sendNewChat = function() {
   * This listens for new messages and recieves them
   * Sends recieved messages to the HTML compiler
   */
- 
+
 var startChat = function() {
-    firebase.database().ref('/messages').limitToLast(20).on('child_added', function(messages) {
+    brodorFB.limitToLast(20).on('child_added', function(messages) {
         var chatUser = messages.val().username
         var message = messages.val().message
-        
+
         createChatElements(chatUser, message);
     });
 }

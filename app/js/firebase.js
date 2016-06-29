@@ -148,5 +148,7 @@ var animateToChatWindow = function(element) {
         duration: 500
     });
     
-    element.removeClass('invisible-state');
+    setTimeout(function(){
+      element.removeClass('invisible-state');
+    }, 0);
 }

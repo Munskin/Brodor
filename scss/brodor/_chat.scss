@@ -3,7 +3,7 @@ body {
 }
 
 // main layout properties
-.content-wrapper {
+.chat-wrapper {
     height: 100vh;
     display: block;
     margin: 0 auto;
@@ -27,6 +27,17 @@ body {
     position: relative;
 }
 
+.chat-staging {
+    position: absolute;
+    left: -1000px;
+    bottom: -1000px;
+    visibility: hidden;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
 /**
   * Componentes
   */
@@ -42,6 +53,13 @@ body {
     float: left;
     border: 1px solid white;
     background-color: white;
+    transition: all 200ms ease;
+    transform: translate3d(0,0,0);
+    opacity: 1;
+    &.invisible-state {
+        opacity: 0;
+        transform: translate3d(0,20px,0);
+    }
     .chat-message-username {
         margin-top: 0;
         margin-bottom: 0;
@@ -73,3 +91,4 @@ body {
         }
     }
 }
+

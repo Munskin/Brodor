@@ -17,7 +17,8 @@ body {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     height: 0px;
-    padding: 1rem 1rem 10rem;
+    padding: 1rem 1rem 2rem;
+    will-change: scroll-position;
 }
 
 .chat-input {
@@ -53,9 +54,10 @@ body {
     float: left;
     border: 1px solid white;
     background-color: white;
-    transition: all 200ms ease;
+    transition: all 200ms ease-in-out;
     transform: translate3d(0,0,0);
     opacity: 1;
+    will-change: transform;
     &.invisible-state {
         opacity: 0;
         transform: translate3d(0,20px,0);

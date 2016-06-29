@@ -36,7 +36,6 @@ firebase.auth().getRedirectResult().then(function(result) {
   var credential = error.credential;
 });
 
-
 /**
   * Sender
   =================
@@ -147,7 +146,5 @@ var animateToChatWindow = function(element) {
         duration: 500
     });
     
-    setTimeout(function(){
-        element.removeClass('invisible-state');
-    },0);
+    element.removeClass('invisible-state');
 }

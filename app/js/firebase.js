@@ -177,7 +177,7 @@ var currentChatOffset = function() {
   */
   
 var scrollSwitch = function() {    
-    $chatWindow.scroll(function(){
+    $chatWindow.on('scrollstop scrollstart',function(){
          if ($chatWindow.children().last().offset().top > currentChatOffset() + $chatWindow.children().last().outerHeight()) {
             console.log('user scrolled up');
          } else {

@@ -173,15 +173,9 @@ var currentChatOffset = function() {
   * Scroll switch
   =================
   * Checks if the user has scrolled up
-  * returns true/false
+  * returns true/false when called
   */
   
 var scrollSwitch = function() {    
-    $chatWindow.on('scrollstop scrollstart',function(){
-         if ($chatWindow.children().last().offset().top > currentChatOffset() + $chatWindow.children().last().outerHeight()) {
-            console.log('user scrolled up');
-         } else {
-            console.log('user is up to date');
-         }
-    });
+    return $chatWindow.children().last().offset().top > currentChatOffset() + $chatWindow.children().last().outerHeight();
 }

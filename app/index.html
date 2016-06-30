@@ -4,34 +4,49 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <title>Brodor Chat App</title>
+    
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
     <link href="css/brodor.min.css" rel="stylesheet">
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
     <!-- google material icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 </head>
 
 <body>
-    <main class="content-wrapper">
+
+    <main class="landing-wrapper">
+        <div class="branding">
+            <img class="brand-logo" src="images/sunglasses.svg" alt="">
+            <h3 class="brand-title">Brodor chat</h3>
+        </div>
+        <div class="login-window">
+            <button class="button-default login-button">Login with Facebook</button>
+        </div>
+    </main>
+
+    <main class="chat-wrapper">
         <section class="chat-window">
-            <!--  Dummy chat messages -->
-            <!-- end dummy chat messages -->
+            <!-- Chats appear here after staging-->
         </section>
         <section class="chat-input">
             <div class="chat-user-input-group input-with-button button-right">
                 <input class="user-input" type="text" placeholder="Say what!?">
                 <span class="button-wrapper">
-                    <button class="button-default send-button"><i class="material-icons">send</i></button>
+                    <button class="button-stripped send-button">Send</button>
                 </span>
             </div>
         </section>
     </main>
-    <!-- FirebaseSDK -->
+    
+    <div class="chat-staging">
+        
+    </div>
+    <script   src="https://code.jquery.com/jquery-3.0.0.min.js"   integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0="   crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
     <script>
     // Initialize Firebase
@@ -43,8 +58,8 @@
     };
     firebase.initializeApp(config);
     </script>
-    <!-- jQuery 3.0.0 -->
-    <script src="https://code.jquery.com/jquery-3.0.0.min.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous"></script>
+    <script src="js/jquery.scrollstop.min.js"></script>
+    <script src="js/firebase.js"></script>
     <script src="js/site.js"></script>
     <script src="js/firebase.js"></script>
 

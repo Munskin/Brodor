@@ -81,6 +81,7 @@ var startChat = function() {
 
         createChatElements(chatUser, message);
     });
+    scrollSwitch();
 }
 
 
@@ -143,19 +144,44 @@ var distributeChats = function() {
 var animateToChatWindow = function(element) {
     element.addClass('invisible-state');
     element.appendTo($chatWindow);
-    
-    var lastElem = $chatWindow.children().last().outerHeight() + 10;
-    var windowHeight = $chatWindow.outerHeight();
-    var scrollOffset = windowHeight - lastElem;
   
     element.velocity("scroll", { 
         container: $chatWindow,
         duration: 400,
         easing: "easeOutCubic",
-        offset: -scrollOffset
+        offset: -currentChatOffset()
     });
     
     setTimeout(function(){
       element.removeClass('invisible-state');
     }, 0);
+}
+
+/**
+  * Get last chat elements offset to top
+  =======================================
+  * Return height of last element subtracted from chat window.
+  */
+
+var currentChatOffset = function() {
+    var lastChatHeight = $chatWindow.children().last().outerHeight() + 10;
+    var chatWindowHeight = $chatWindow.outerHeight();
+    return chatWindowHeight - lastChatHeight;
+}
+
+/**
+  * Scroll switch
+  =================
+  * Checks if the user has scrolled up
+  * returns true/false
+  */
+  
+var scrollSwitch = function() {    
+    $chatWindow.scroll(function(){
+         if ($chatWindow.children().last().offset().top > currentChatOffset() + $chatWindow.children().last().outerHeight()) {
+            console.log('user scrolled up');
+         } else {
+            console.log('user is up to date');
+         }
+    });
 }

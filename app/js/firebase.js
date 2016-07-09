@@ -225,3 +225,5 @@ var scrollSwitch = function() {
         c = $chatWindow.children().last().outerHeight();
     return a > b + c;
 }
+
+console.log('gayboys from space');

@@ -7,8 +7,9 @@ var $loginButton = $('.login-button');
 var $landingWrapper = $('.landing-wrapper');
 var brodorFB = firebase.database().ref('/messages');
 var provider = new firebase.auth.FacebookAuthProvider();
+var connectedRef = firebase.database().ref('.info/connected');
 var facebookUser = null; /* filled by FB */
-
+userId = null;
 
 /**
   * Authorization
@@ -22,13 +23,15 @@ $loginButton.on('click', function() {
 
 firebase.auth().getRedirectResult().then(function(result) {
     facebookUser = result.user.displayName;
-    
+
     if (result.credential) {
         var token = result.credential.accessToken;
     }
     if (facebookUser != null) {
+        userId = firebase.auth().currentUser.uid;
         $landingWrapper.velocity("fadeOut", 300);
         startChat();
+        presenceSys();
     }
 }).catch(function(error) {
   var errorCode = error.code;
@@ -37,14 +40,30 @@ firebase.auth().getRedirectResult().then(function(result) {
   var credential = error.credential;
 });
 
+var presenceSys = function() {
+    connectedRef.on('value', function(snap) {
+        if (snap.val() === true) {
+            var myConnectionsRef = firebase.database().ref('users/' + userId);
+            myConnectionsRef.set({
+                connected: true
+            });
+            // when I disconnect, remove this device
+            myConnectionsRef.onDisconnect().set({
+                connected: false
+            });
+        }
+    });
+}
+
+
 /**
   * Test stuff
   =================
   * This sends messages to the database after triggers are fired
   */
-  
-facebookUser = "anonymous"
-$landingWrapper.remove();
+
+/*facebookUser = "anonymous"
+$landingWrapper.remove();*/
 
 
 /**
@@ -93,8 +112,22 @@ var startChat = function() {
     });
 }
 
-startChat();
+// startChat();
 
+/**
+  * onConnect / disconnect
+  =================
+  *
+  */
+
+
+var onConnect = function () {
+  connectMessage = facebookUser + " has connected.";
+  var newDiv =  document.createElement("div");
+  newDiv.innerHTML = connectMessage;
+  console.log(newDiv.innerHTML);
+  document.body.appendChild(newDiv);
+}
 
 /**
   * HTML compiler
@@ -120,7 +153,7 @@ var createChatElements = function(chatUser, message) {
     chatHTML += '</div>';
 
     $stagingWindow.append(chatHTML);
-    
+
     distributeChats();
 };
 
@@ -134,13 +167,13 @@ var createChatElements = function(chatUser, message) {
 
 var distributeChats = function() {
     var timer = 0;
-    
+
     for (var i = 0; i < $stagingWindow.children().length; i++) {
         setTimeout(function(){
             var firstChat = $stagingWindow.children().first();
             animateToChatWindow(firstChat);
         }, timer);
-        timer += 20;    
+        timer += 20;
     }
 }
 
@@ -151,11 +184,11 @@ var distributeChats = function() {
   * Scrolls to the appended element
   * Removes the invisible state which triggers CSS animation
   */
-  
+
 var animateToChatWindow = function(element) {
     element.addClass('invisible-state');
     element.appendTo($chatWindow);
-    
+
     element.velocity("scroll", {
         container: $chatWindow,
         duration: 400,
@@ -186,8 +219,8 @@ var currentChatOffset = function() {
   * Checks if the user has scrolled up
   * returns true/false when called
   */
-  
-var scrollSwitch = function() {    
+
+var scrollSwitch = function() {
     var a = $chatWindow.children().last().offset().top,
         b = currentChatOffset(),
         c = $chatWindow.children().last().outerHeight();

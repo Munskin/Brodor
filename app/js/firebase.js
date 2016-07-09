@@ -46,7 +46,8 @@ var presenceSys = function() {
         if (snap.val() === true) {
             var myConnectionsRef = firebase.database().ref('users/' + userId);
             myConnectionsRef.set({
-                connected: true
+                connected: true,
+                username: facebookUser
             });
             // when I disconnect, remove this device
             myConnectionsRef.onDisconnect().set({

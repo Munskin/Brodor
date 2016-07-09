@@ -32,12 +32,13 @@ firebase.auth().getRedirectResult().then(function(result) {
         $landingWrapper.velocity("fadeOut", 300);
         startChat();
         presenceSys();
+        userListener();
     }
 }).catch(function(error) {
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  var email = error.email;
-  var credential = error.credential;
+    var errorCode = error.code,
+        errorMessage = error.message,
+        email = error.email,
+        credential = error.credential;
 });
 
 var presenceSys = function() {
@@ -112,22 +113,19 @@ var startChat = function() {
     });
 }
 
-// startChat();
-
 /**
-  * onConnect / disconnect
+  * User listener
   =================
-  *
+  * This listens for new messages and recieves them
+  * Sends recieved messages to the HTML compiler
   */
 
-
-var onConnect = function () {
-  connectMessage = facebookUser + " has connected.";
-  var newDiv =  document.createElement("div");
-  newDiv.innerHTML = connectMessage;
-  console.log(newDiv.innerHTML);
-  document.body.appendChild(newDiv);
+var userListener = function() {
+    firebase.database().ref('users/').on('child_changed', function(messages) {
+        console.log(messages.val());
+    });
 }
+
 
 /**
   * HTML compiler

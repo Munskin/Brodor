@@ -226,4 +226,4 @@ var scrollSwitch = function() {
     return a > b + c;
 }
 
-console.log('gayboys from uranus');
+console.log('gayboys from uranus loool');

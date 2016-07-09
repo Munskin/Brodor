@@ -9,7 +9,6 @@ var brodorFB = firebase.database().ref('/messages');
 var provider = new firebase.auth.FacebookAuthProvider();
 var connectedRef = firebase.database().ref('.info/connected');
 var facebookUser = null; /* filled by FB */
-userId = null;
 
 /**
   * Authorization
@@ -32,7 +31,6 @@ firebase.auth().getRedirectResult().then(function(result) {
         $landingWrapper.velocity("fadeOut", 300);
         startChat();
         presenceSys();
-        userListener();
     }
 }).catch(function(error) {
     var errorCode = error.code,
@@ -45,14 +43,16 @@ var presenceSys = function() {
     connectedRef.on('value', function(snap) {
         if (snap.val() === true) {
             var myConnectionsRef = firebase.database().ref('users/' + userId);
+            var lastOnlineRef = firebase.database().ref('users/' + userId + '/lastOnline');
             myConnectionsRef.set({
                 connected: true,
                 username: facebookUser
             });
             // when I disconnect, remove this device
-            myConnectionsRef.onDisconnect().set({
+            myConnectionsRef.onDisconnect().update({
                 connected: false
             });
+            lastOnlineRef.onDisconnect().set(firebase.database.ServerValue.TIMESTAMP);
         }
     });
 }
@@ -122,11 +122,19 @@ var startChat = function() {
   */
 
 var userListener = function() {
-    firebase.database().ref('users/').on('child_changed', function(messages) {
-        console.log(messages.val());
+    firebase.database().ref('users/').on('child_changed', function(userRef) {
+        var checkUser = userRef.val().connected;
+        var verUser = userRef.val().username
+        if (checkUser === true) {
+            console.log(verUser + " connected");
+        }
+        if (checkUser === false) {
+            console.log(verUser + " disconnected");
+        }
     });
 }
 
+userListener();
 
 /**
   * HTML compiler
@@ -225,5 +233,3 @@ var scrollSwitch = function() {
         c = $chatWindow.children().last().outerHeight();
     return a > b + c;
 }
-
-console.log('gayboys from uranus loool');

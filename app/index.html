@@ -12,7 +12,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
     <link href="css/brodor.min.css" rel="stylesheet">
     <!-- google material icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 </head>
 
@@ -28,35 +28,28 @@
             <button class="button-default login-button">Login with Facebook</button>
         </div>
     </main>
-    
-    <!-- Top bar -->
-    
-    <div class="top-bar">
-        <div class="top-bar-menu">
-            <span class="menu-bar"></span>
-            <span class="menu-bar"></span>
-            <span class="menu-bar"></span>
-        </div>
-        
-        <div class="top-bar-notification">
-            <span class="notification">Sam Huizeling has connected</span>
-        </div>
-    </div>
 
     <!-- Chat wrapper -->
     <main class="chat-wrapper">
+        <div class="top-bar">
+            <div class="top-bar-menu">
+                <span class="menu-bar"></span>
+                <span class="menu-bar"></span>
+                <span class="menu-bar"></span>
+            </div>
+            
+            <div class="top-bar-notification">
+                <span class="notification">Sam Huizeling has connected</span>
+            </div>
+        </div>
     
         <!-- Chats appear here after staging-->
         <section class="chat-window"></section>
         
         <!-- User input -->
         <section class="chat-input">
-            <div class="chat-user-input-group input-with-button button-right">
-                <input class="user-input" type="text" placeholder="Say what!?">
-                <span class="button-wrapper">
-                    <button class="button-stripped send-button">Send</button>
-                </span>
-            </div>
+                <textarea class="user-input" type="text" placeholder="Say what!?"></textarea>
+                <span class="send-button">Send</span>
         </section>
     </main>
     

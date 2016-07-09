@@ -9,7 +9,7 @@ body {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    padding: 5rem 0 0 0;
+    padding: 0;
 }
 
 .chat-window {
@@ -19,13 +19,6 @@ body {
     height: 0px;
     padding: 1rem 1rem 2rem;
     will-change: scroll-position;
-}
-
-.chat-input {
-    padding: 1rem;
-    background-color: white;
-    box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
-    position: relative;
 }
 
 .chat-staging {
@@ -58,6 +51,7 @@ body {
     transform: translate3d(0,0,0);
     opacity: 1;
     will-change: transform;
+    word-break: break-word;
     &.invisible-state {
         opacity: 0;
         transform: translate3d(0,20px,0);
@@ -84,19 +78,34 @@ body {
 }
 
 // user input group
-.chat-user-input-group {
-    margin-bottom: 0;
+.chat-input {
+    padding: 1rem;
+    background-color: white;
+    box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    display: flex;
+    align-items: center;
     .user-input {
         appearance: none;
-        border-radius: $small-radius !important;
-    }
-    .send-button {
         margin: 0;
-        padding: 0 0 0 1rem;
-        font-weight: $font-weight-bold;
+        resize: none;
+        border-radius: $small-radius !important;
+        border: 1px solid $soft-gray;
+        background-color: $soft-gray;
+        padding: 0 0.5rem;
+        min-height: 3rem;
+        max-height: 3rem;
+        transition: all 200ms ease-in-out;
+        line-height: 1.7;
         &:focus {
-            text-decoration: none;
+            background-color: white;
         }
     }
+    .send-button {
+        padding: 0.3rem 0 0.3rem 1rem;
+        font-weight: $font-weight-bold;
+        color: $primary-color;
+        overflow: hidden;
+        width: 50px;
+    }
 }
-

@@ -18,6 +18,7 @@
 
 <body>
 
+    <!-- Landing wrapper -->
     <main class="landing-wrapper">
         <div class="branding">
             <img class="brand-logo" src="images/sunglasses.svg" alt="">
@@ -27,11 +28,28 @@
             <button class="button-default login-button">Login with Facebook</button>
         </div>
     </main>
+    
+    <!-- Top bar -->
+    
+    <div class="top-bar">
+        <div class="top-bar-menu">
+            <span class="menu-bar"></span>
+            <span class="menu-bar"></span>
+            <span class="menu-bar"></span>
+        </div>
+        
+        <div class="top-bar-notification">
+            <span class="notification">Sam Huizeling has connected</span>
+        </div>
+    </div>
 
+    <!-- Chat wrapper -->
     <main class="chat-wrapper">
-        <section class="chat-window">
-            <!-- Chats appear here after staging-->
-        </section>
+    
+        <!-- Chats appear here after staging-->
+        <section class="chat-window"></section>
+        
+        <!-- User input -->
         <section class="chat-input">
             <div class="chat-user-input-group input-with-button button-right">
                 <input class="user-input" type="text" placeholder="Say what!?">
@@ -42,9 +60,10 @@
         </section>
     </main>
     
-    <div class="chat-staging">
-        
-    </div>
+    <!-- Chat staging -->
+    <div class="chat-staging"></div>
+    
+    <!-- Scripts -->
     <script   src="https://code.jquery.com/jquery-3.0.0.min.js"   integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0="   crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>

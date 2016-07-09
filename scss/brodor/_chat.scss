@@ -9,7 +9,7 @@ body {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    padding: 0;
+    padding: 5rem 0 0 0;
 }
 
 .chat-window {
@@ -45,8 +45,8 @@ body {
 
 // Chat messages
 .chat-message {
-    max-width: 540px;
-    padding: 1rem;
+    max-width: 85vw;
+    padding: 0.6rem 1rem;
     border-radius: $large-radius;
     margin-bottom: 1rem;
     box-shadow: 0 2px 2px rgba(black, 0.1);
@@ -63,8 +63,10 @@ body {
         transform: translate3d(0,20px,0);
     }
     .chat-message-username {
-        margin-top: 0;
+        margin-top: 0.2em;
         margin-bottom: 0;
+        font-size: 0.75em;
+        opacity: 0.8;
     }
     .chat-message-message {
         margin-bottom: 0;
@@ -75,6 +77,9 @@ body {
         border: 1px solid $primary-color;
         background-color: $primary-color;
         color: white;
+        .chat-message-username {
+            display: none;
+        }
     }
 }
 

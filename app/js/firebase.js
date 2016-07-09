@@ -38,6 +38,16 @@ firebase.auth().getRedirectResult().then(function(result) {
 });
 
 /**
+  * Test stuff
+  =================
+  * This sends messages to the database after triggers are fired
+  */
+  
+facebookUser = "anonymous"
+$landingWrapper.remove();
+
+
+/**
   * Sender
   =================
   * This sends messages to the database after triggers are fired
@@ -81,8 +91,9 @@ var startChat = function() {
 
         createChatElements(chatUser, message);
     });
-    scrollSwitch();
 }
+
+startChat();
 
 
 /**
@@ -144,14 +155,14 @@ var distributeChats = function() {
 var animateToChatWindow = function(element) {
     element.addClass('invisible-state');
     element.appendTo($chatWindow);
-  
-    element.velocity("scroll", { 
+    
+    element.velocity("scroll", {
         container: $chatWindow,
         duration: 400,
         easing: "easeOutCubic",
         offset: -currentChatOffset()
     });
-    
+
     setTimeout(function(){
       element.removeClass('invisible-state');
     }, 0);
@@ -177,5 +188,8 @@ var currentChatOffset = function() {
   */
   
 var scrollSwitch = function() {    
-    return $chatWindow.children().last().offset().top > currentChatOffset() + $chatWindow.children().last().outerHeight();
+    var a = $chatWindow.children().last().offset().top,
+        b = currentChatOffset(),
+        c = $chatWindow.children().last().outerHeight();
+    return a > b + c;
 }

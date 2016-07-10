@@ -5,7 +5,7 @@ var $userInput = $('.user-input');
 var $chatMessage = $('.chat-message');
 var $loginButton = $('.login-button');
 var $landingWrapper = $('.landing-wrapper');
-var brodorFB = firebase.database().ref('/messages');
+var messageRef = firebase.database().ref('/messages');
 var provider = new firebase.auth.FacebookAuthProvider();
 var connectedRef = firebase.database().ref('.info/connected');
 var facebookUser = null; /* filled by FB */
@@ -39,20 +39,24 @@ firebase.auth().getRedirectResult().then(function(result) {
         credential = error.credential;
 });
 
+/**
+  * Presence checker
+  =================
+  * Checks who's online and who's not. 
+  */
+
 var presenceSys = function() {
     connectedRef.on('value', function(snap) {
         if (snap.val() === true) {
             var myConnectionsRef = firebase.database().ref('users/' + userId);
-            var lastOnlineRef = firebase.database().ref('users/' + userId + '/lastOnline');
             myConnectionsRef.set({
                 connected: true,
                 username: facebookUser
             });
-            // when I disconnect, remove this device
             myConnectionsRef.onDisconnect().update({
-                connected: false
+                connected: false,
+                lastOnline: moment().format('MMMM Do YYYY, h:mm:ss a')
             });
-            lastOnlineRef.onDisconnect().set(firebase.database.ServerValue.TIMESTAMP);
         }
     });
 }
@@ -88,7 +92,7 @@ var sendNewChat = function() {
     var message = $userInput.val();
 
     if (message.length > 0) {
-        brodorFB.push({
+        messageRef.push({
             username: facebookUser,
             message: message,
             timestamp: Date.now()
@@ -106,7 +110,7 @@ var sendNewChat = function() {
   */
 
 var startChat = function() {
-    brodorFB.limitToLast(20).on('child_added', function(messages) {
+    messageRef.limitToLast(20).on('child_added', function(messages) {
         var chatUser = messages.val().username
         var message = messages.val().message
 
@@ -121,20 +125,17 @@ var startChat = function() {
   * Sends recieved messages to the HTML compiler
   */
 
-var userListener = function() {
-    firebase.database().ref('users/').on('child_changed', function(userRef) {
-        var checkUser = userRef.val().connected;
-        var verUser = userRef.val().username
-        if (checkUser === true) {
-            console.log(verUser + " connected");
-        }
-        if (checkUser === false) {
-            console.log(verUser + " disconnected");
-        }
-    });
-}
-
-userListener();
+firebase.database().ref('users/').on('child_changed', function(userRef) {
+    var checkUser = userRef.val().connected,
+        verUser = userRef.val().username,
+        lastActive = userRef.val().lastOnline;
+    if (checkUser === true) {
+        console.log(verUser + " connected");
+    }
+    if (checkUser === false) {
+        console.log(verUser + " disconnected on " + lastActive);
+    }
+});
 
 /**
   * HTML compiler
